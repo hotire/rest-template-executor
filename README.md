@@ -11,6 +11,12 @@ https://github.com/hotire/executor-core
 ### Maven
 
 ```
+
+<repository>
+  <id>hotire</id>
+  <url>http://dl.bintray.com/hotire/utils</url>
+</repository>
+  
 <dependency>
   <groupId>com.github.hotire</groupId>
   <artifactId>rest-template-executor</artifactId>

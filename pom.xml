@@ -23,6 +23,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>hotire</id>
+      <url>http://dl.bintray.com/hotire/utils</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -41,7 +48,7 @@
     <dependency>
       <groupId>com.github.hotire</groupId>
       <artifactId>executor-core</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.2</version>
     </dependency>
   </dependencies>
 </project>
