@@ -32,20 +32,6 @@ public class ObjectCastHelper {
       );
     }
 
-    /**
-     * 캐스팅할 객체와 해당 객체를 이용하는 Consumer 함수를 동시에 받는 함수.
-     *
-     * <pre>
-     * {@code
-     * cast(new TypeReference<List<String>>() {})
-     *  .accept(object, strings -> strings.forEach(log::info));
-     * }
-     * </pre>
-     * @version 1.6.0
-     * @author stewie-byun
-     * @param target 캐스팅이 필요한 Object
-     * @param consumer 캐스팅 된 Object 를 처리할 함수.
-     */
     public void accept(Object target, Consumer<T> consumer) {
       consumer.accept(convertValueFunction.apply(target));
     }
