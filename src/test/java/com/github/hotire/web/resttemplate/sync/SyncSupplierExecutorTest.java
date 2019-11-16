@@ -4,9 +4,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -26,40 +24,34 @@ public class SyncSupplierExecutorTest {
 
   @Test
   public void execute_supplier() {
+    // Given
+    final String url = "/test";
+    final String expectedBody = "hello";
+
     // When
-    when(restTemplate.getForEntity("/test", String.class))
-      .thenReturn(ResponseEntity.ok().body("hello"));
-    when(restTemplate.getForEntity("/key", String.class))
-      .thenReturn(ResponseEntity.ok().body("value"));
+    when(restTemplate.getForEntity(url, String.class))
+      .thenReturn(ResponseEntity.ok().body(expectedBody));
 
     // Then
     RestTemplateExecutor
-      .ofTask(() -> restTemplate.getForEntity("/test", String.class)
+      .ofTask(() -> restTemplate.getForEntity(url, String.class)
         , exception -> {}
-        , s -> Assert.assertEquals("hello", s))
+        , s -> Assertions.assertThat(s).isEqualTo(expectedBody))
       .execute();
-
-    // When
-    Map<String, String> map = new HashMap<>();
-    RestTemplateExecutor
-      .ofTask(() -> ResponseEntity.ok().body("value")
-        , exception -> {}
-        , s -> map.put("key", s))
-      .execute();
-
-    // Then
-    assertThat(map.get("key")).isEqualTo("value");
   }
 
   @Test
   public void execute_supplier_not_found() {
+    // Given
+    final String url = "/test";
+
     // When
-    when(restTemplate.getForEntity("/test", String.class))
+    when(restTemplate.getForEntity(url, String.class))
       .thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
 
     // Then
     RestTemplateExecutor
-      .ofTask(() -> restTemplate.getForEntity("/test", String.class)
+      .ofTask(() -> restTemplate.getForEntity(url, String.class)
         , exception -> {
           assertThat(exception).isInstanceOf(HttpClientErrorException.class);
           assertThat(((HttpClientErrorException)exception).getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -69,13 +61,16 @@ public class SyncSupplierExecutorTest {
 
   @Test
   public void execute_supplier_internal_server_error() {
+    // Given
+    final String url = "/test";
+
     // When
-    when(restTemplate.getForEntity("/test", String.class))
+    when(restTemplate.getForEntity(url, String.class))
       .thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
 
     // Then
     RestTemplateExecutor
-      .ofTask(() -> restTemplate.getForEntity("/test", String.class)
+      .ofTask(() -> restTemplate.getForEntity(url, String.class)
         , exception -> {
           assertThat(exception).isInstanceOf(HttpServerErrorException.class);
           assertThat(((HttpServerErrorException)exception).getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
