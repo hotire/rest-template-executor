@@ -9,7 +9,6 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -18,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class SyncSupplierExecutorTest {
 
-  @Mock
   private RestTemplate restTemplate;
 
   @Before
