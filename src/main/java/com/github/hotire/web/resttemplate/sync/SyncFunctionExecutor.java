@@ -28,7 +28,7 @@ public class SyncFunctionExecutor<T> extends AbstractFunctionExecutor<ResponseEn
     // execute firstTask
     try {
       result = getFirstTask().getTask().get();
-    } catch (Throwable e) {
+    } catch (Exception e) {
       getFirstTask().getDoOnError().accept(e);
       executorResponses.add(handleException(e));
       return executorResponses;
