@@ -41,7 +41,7 @@ public class SyncFunctionExecutor<T> extends AbstractFunctionExecutor<ResponseEn
     for (Task<Function<T, ResponseEntity<T>>, T> task : getTasks()) {
       try {
         result = task.getTask().apply(result.getBody());
-      } catch (Throwable e) {
+      } catch (Exception e) {
         task.getDoOnError().accept(e);
         executorResponses.add(handleException(e));
         break;
