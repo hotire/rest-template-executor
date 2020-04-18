@@ -1,19 +1,20 @@
 package com.github.hotire.web.resttemplate.asnyc;
 
-import static java.util.stream.Collectors.toList;
-
 import com.github.hotire.executor.core.common.AbstractSupplierExecutor;
 import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.Task;
 import com.github.hotire.web.resttemplate.common.HttpExceptionHandler;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.concurrent.ListenableFuture;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.concurrent.ListenableFuture;
+
+import static java.util.stream.Collectors.toList;
 
 
 @Slf4j

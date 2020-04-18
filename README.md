@@ -20,7 +20,7 @@ https://github.com/hotire/executor-core
 <dependency>
   <groupId>com.github.hotire</groupId>
   <artifactId>rest-template-executor</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
